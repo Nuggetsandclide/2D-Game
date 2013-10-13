@@ -167,7 +167,7 @@ public class Step3 extends JPanel implements Runnable {
 			}//else2 (after if)
 			
 		}
-		if(character.y == 814) {
+		if(character.y >= 814) {
 			onFloor = true;
 		} else {
 			onFloor = false;
