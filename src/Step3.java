@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 
@@ -39,6 +40,10 @@ public class Step3 extends JPanel implements Runnable {
 	public int PlayerHealth = 100;
 	public int xScroll = 0;
 	public int yScroll = 0;
+	public int PauseButtonX = Step.width /2 -157;
+	public int PauseButtonY = Step.height /2 -20;
+	public int PauseButtonWidth = 100;
+	public int PauseButtonHeight = 50;
 	
 	
 	public boolean objectsDefined = false;
@@ -50,7 +55,8 @@ public class Step3 extends JPanel implements Runnable {
 	public boolean sinking = true;
 	public boolean onFloor;
 	public boolean GameOver = false;
-	public boolean inGame = true;
+	public static boolean inGame = true;
+	public boolean PauseButtonClicked;
 	
 	
 	public Thread game ;
@@ -135,6 +141,7 @@ public class Step3 extends JPanel implements Runnable {
 				g.drawString("GAME OVER", Step.width /2 - 157, Step.height /2 - 20);
 			}
 			if(inGame != true) {
+				g.fillRect(PauseButtonX,PauseButtonY,PauseButtonWidth,PauseButtonHeight);
 				g.setColor(Color.GREEN);
 				g.drawString("PAUSED (Esc to Un-Pause)", 10,20 );
 			}
