@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -34,6 +35,7 @@ public class Step3 extends JPanel implements Runnable {
 	public int sinkingDepth = 50;
 	public int sinkingSpeed = jumpingSpeed;
 	public int sinkingFrame = 0;
+	public int PlayerHealth = 100;
 	
 	
 	public boolean objectsDefined = false;
@@ -44,6 +46,7 @@ public class Step3 extends JPanel implements Runnable {
 	public boolean jumping = true;
 	public boolean sinking = true;
 	public boolean onFloor;
+	public boolean GameOver = false;
 	
 	
 	public Thread game ;
@@ -59,6 +62,7 @@ public class Step3 extends JPanel implements Runnable {
 		
 		f.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
+				if(!GameOver){
 				if(e.getKeyCode() == keyLeft) {
 					left = true;
 				}
@@ -67,14 +71,16 @@ public class Step3 extends JPanel implements Runnable {
 				}
 				if (e.getKeyCode() == keyJump) {
 					jumping = true;
-					
+					PlayerHealth -=10;
 				}
 				if (e.getKeyCode() == keySink) {
 					sinking = true;
 					
 				}
+				}
 			}
 			public void keyReleased(KeyEvent e)  {
+				if(!GameOver){
 				if(e.getKeyCode() == keyLeft) {
 					left = false;
 				}
@@ -88,6 +94,7 @@ public class Step3 extends JPanel implements Runnable {
 					sinking = false;
 					
 				}
+				}
 			
 			}
 		
@@ -96,12 +103,25 @@ public class Step3 extends JPanel implements Runnable {
 
 	public void paintComponent(Graphics g)   {
 		super.paintComponent(g);
+		int stringx = PlayerHealth *3;
 		
 		if (objectsDefined) {
 			
 			g.setColor(Color.WHITE);
 			g.fillRect(character.x, character.y, character.width, character.height);
 			g.fillRect(floor.x, floor.y, floor.width, floor.height);
+			if(PlayerHealth > 0){
+			g.setColor(Color.RED);
+			g.fillRect(Step.width - 1590, Step.height -890, stringx, 30);
+			g.setColor(Color.WHITE);
+
+			g.setFont(new Font("default", Font.BOLD, 20));
+			g.drawString("" + PlayerHealth, stringx /2 -2, 32);
+			}else{
+				GameOver = true;
+				g.setFont(new Font("default", Font.BOLD, 50));
+				g.drawString("GAME OVER", Step.width /2 - 157, Step.height /2 - 20);
+			}
 		}//if objectsDefined
 		
 	}//paintComponents
