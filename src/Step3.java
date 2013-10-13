@@ -17,6 +17,7 @@ public class Step3 extends JPanel implements Runnable {
 	public int keyLeft = KeyEvent.VK_A;
 	public int keyRight = KeyEvent.VK_D;
 	public int keySink = KeyEvent.VK_S;
+	public int keyPause = KeyEvent.VK_ESCAPE;
 	
 	
 	public int characterWidth = 24;
@@ -24,18 +25,20 @@ public class Step3 extends JPanel implements Runnable {
 	public int fps = 1000;
 	public int fallingSpeed = 20;
 	public int fallingFrame = 0;
-	public int floorHeight = 70;
+	public int floorHeight = 50;
 	public int movementSpeed = 1;
 	public int movementFrame = -1;
 	public int movementFallingSpeed = 1;
 	public int movementResetSpeed = 1;
-	public int jumpingHeight = 50;
+	public int jumpingHeight = 110;
 	public int jumpingSpeed = fallingSpeed;
 	public int jumpingFrame = 0;
-	public int sinkingDepth = 50;
+	public int sinkingDepth = jumpingHeight/2;
 	public int sinkingSpeed = jumpingSpeed;
 	public int sinkingFrame = 0;
 	public int PlayerHealth = 100;
+	public int xScroll = 0;
+	public int yScroll = 0;
 	
 	
 	public boolean objectsDefined = false;
@@ -47,6 +50,7 @@ public class Step3 extends JPanel implements Runnable {
 	public boolean sinking = true;
 	public boolean onFloor;
 	public boolean GameOver = false;
+	public boolean inGame = true;
 	
 	
 	public Thread game ;
@@ -77,7 +81,16 @@ public class Step3 extends JPanel implements Runnable {
 					sinking = true;
 					
 				}
+				if (e.getKeyCode() == keyPause) {
+					if (inGame) {
+					inGame = false;
+					} else {
+						inGame = true;
+						
+					}
+					}
 				}
+				
 			}
 			public void keyReleased(KeyEvent e)  {
 				if(!GameOver){
@@ -95,7 +108,7 @@ public class Step3 extends JPanel implements Runnable {
 					
 				}
 				}
-			
+		
 			}
 		
 		}) ;
@@ -108,19 +121,22 @@ public class Step3 extends JPanel implements Runnable {
 		if (objectsDefined) {
 			
 			g.setColor(Color.WHITE);
-			g.fillRect(character.x, character.y, character.width, character.height);
-			g.fillRect(floor.x, floor.y, floor.width, floor.height);
+			g.fillRect(character.x - xScroll, character.y, character.width, character.height);
+			g.fillRect(floor.x - xScroll, floor.y, floor.width, floor.height);
 			if(PlayerHealth > 0){
 			g.setColor(Color.RED);
 			g.fillRect(Step.width - 1590, Step.height -890, stringx, 30);
 			g.setColor(Color.WHITE);
-
 			g.setFont(new Font("default", Font.BOLD, 20));
 			g.drawString("" + PlayerHealth, stringx /2 -2, 32);
 			}else{
 				GameOver = true;
 				g.setFont(new Font("default", Font.BOLD, 50));
 				g.drawString("GAME OVER", Step.width /2 - 157, Step.height /2 - 20);
+			}
+			if(inGame != true) {
+				g.setColor(Color.GREEN);
+				g.drawString("PAUSED (Esc to Un-Pause)", 10,20 );
 			}
 		}//if objectsDefined
 		
@@ -140,6 +156,7 @@ public class Step3 extends JPanel implements Runnable {
 
 	public void run() {
 		while(running) { // Falling/landing
+			if(inGame) {
 			Point pt1 = new Point(character.x, character.y + character.height);
 			Point pt2 = new Point(character.x + character.width, character.y + character.height);
 		if(jumping != true) {
@@ -168,9 +185,9 @@ public class Step3 extends JPanel implements Runnable {
 			}//else2 (after if)
 			
 		}
-		if(character.y == 795){
+		if(character.y >= 814) {
 			onFloor = true;
-		}else{
+		} else {
 			onFloor = false;
 		}
 			//Movement speed check
@@ -186,6 +203,8 @@ public class Step3 extends JPanel implements Runnable {
 			 if (jumpingFrame <= jumpingHeight){
 				
 				character.y -= 1;
+				
+				yScroll -= 1;
 				
 				jumpingFrame += 1;
 				 
@@ -214,10 +233,14 @@ public class Step3 extends JPanel implements Runnable {
 			
 			if(movementFrame >= movementSpeed) {
 				if(right)  {
-					character.x +=1;
+					character.x += 1;
+					xScroll += 1;
+
 				}
 				if(left)  {
 					character.x -=1;
+					xScroll -= 1;
+					
 				}
 				movementFrame = -1;
 			} else {
@@ -230,7 +253,8 @@ public class Step3 extends JPanel implements Runnable {
 		
 		repaint();
 		
-		}//while running
+			}
+			}//while running
 		
 	}//public void run
 	
