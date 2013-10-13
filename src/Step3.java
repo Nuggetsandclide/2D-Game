@@ -263,18 +263,6 @@ public class Step3 extends JPanel implements Runnable {
 				movementFrame += 1;
 				
 			}
-			if(block.contains(pt1) || block.contains(pt2))
-			{
-				
-				falling = false;
-				
-				
-			} else {
-				
-				falling = true;
-				
-			}
-			
 			
 		fpsSetter();
 		
