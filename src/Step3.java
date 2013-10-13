@@ -29,7 +29,7 @@ public class Step3 extends JPanel implements Runnable {
 	public int movementFrame = -1;
 	public int movementFallingSpeed = 1;
 	public int movementResetSpeed = 1;
-	public int jumpingHeight = 100;
+	public int jumpingHeight = 110;
 	public int jumpingSpeed = fallingSpeed;
 	public int jumpingFrame = 0;
 	public int sinkingDepth = jumpingHeight/2;
