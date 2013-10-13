@@ -12,7 +12,7 @@ public class Step3 extends JPanel implements Runnable {
 	public Rectangle character;
 	public Rectangle floor;
 	
-	public int keyJump = KeyEvent.VK_SPACE;
+	public int keyJump = KeyEvent.VK_W;
 	public int keyLeft = KeyEvent.VK_A;
 	public int keyRight = KeyEvent.VK_D;
 	public int keySink = KeyEvent.VK_S;
@@ -126,6 +126,7 @@ public class Step3 extends JPanel implements Runnable {
 				if(floor.contains(pt1) || floor.contains(pt2)) {
 					
 					falling = false;
+					
 					
 				} else {
 					character.y += 1;
