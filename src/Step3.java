@@ -7,12 +7,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 import javax.swing.*;
 
 public class Step3 extends JPanel implements Runnable {
 	public Rectangle character;
 	public Rectangle floor;
+	public Rectangle block;
+	Random rand = new Random();
 	
 	public int keyJump = KeyEvent.VK_W;
 	public int keyLeft = KeyEvent.VK_A;
@@ -44,6 +47,8 @@ public class Step3 extends JPanel implements Runnable {
 	public int PauseButtonY = Step.height /2 -20;
 	public int PauseButtonWidth = 100;
 	public int PauseButtonHeight = 50;
+	public int blockX = rand.nextInt(1000) *2 -400;
+	public int blockY = rand.nextInt(1000);
 	
 	
 	public boolean objectsDefined = false;
@@ -119,6 +124,7 @@ public class Step3 extends JPanel implements Runnable {
 		
 		}) ;
 	}//public Step3
+	
 
 	public void paintComponent(Graphics g)   {
 		super.paintComponent(g);
@@ -129,6 +135,7 @@ public class Step3 extends JPanel implements Runnable {
 			g.setColor(Color.WHITE);
 			g.fillRect(character.x - xScroll, character.y, character.width, character.height);
 			g.fillRect(floor.x - xScroll, floor.y, floor.width, floor.height);
+			g.fillRect(blockX, blockY, 50, 50);
 			if(PlayerHealth > 0){
 			g.setColor(Color.RED);
 			g.fillRect(Step.width - 1590, Step.height -890, stringx, 30);
@@ -152,6 +159,7 @@ public class Step3 extends JPanel implements Runnable {
 		
 		character = new Rectangle((Step.width/2) - (characterWidth/2), (Step.height/2) - (characterHeight/2) , characterWidth , characterHeight );
 		floor = new Rectangle(-10, Step.height-floorHeight, Step.width +10, floorHeight);
+		block = new Rectangle(blockX, blockY, 50, 50);
 		
 		 
 		
@@ -167,7 +175,7 @@ public class Step3 extends JPanel implements Runnable {
 			Point pt2 = new Point(character.x + character.width, character.y + character.height);
 		if(jumping != true) {
 			if(fallingFrame >= fallingSpeed) {
-				if(floor.contains(pt1) || floor.contains(pt2)) {
+				if(floor.contains(pt1) || floor.contains(pt2) || block.contains(pt1) || block.contains(pt2)) {
 					
 					falling = false;
 					
@@ -241,16 +249,29 @@ public class Step3 extends JPanel implements Runnable {
 				if(right)  {
 					character.x += 1;
 					xScroll += 1;
+					blockX -=1;
 
 				}
 				if(left)  {
 					character.x -=1;
 					xScroll -= 1;
+					blockX +=1;
 					
 				}
 				movementFrame = -1;
 			} else {
 				movementFrame += 1;
+				
+			}
+			if(block.contains(pt1) || block.contains(pt2))
+			{
+				
+				falling = false;
+				
+				
+			} else {
+				
+				falling = true;
 				
 			}
 			
@@ -263,6 +284,7 @@ public class Step3 extends JPanel implements Runnable {
 			}//while running
 		
 	}//public void run
+
 	
 	public void fpsSetter() {
 		try {
