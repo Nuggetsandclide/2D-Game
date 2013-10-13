@@ -121,7 +121,6 @@ public class Step3 extends JPanel implements Runnable {
 		while(running) { // Falling/landing
 			Point pt1 = new Point(character.x, character.y + character.height);
 			Point pt2 = new Point(character.x + character.width, character.y + character.height);
-			if(sinking) {
 		if(jumping != true) {
 			if(fallingFrame >= fallingSpeed) {
 				if(floor.contains(pt1) || floor.contains(pt2)) {
@@ -147,7 +146,6 @@ public class Step3 extends JPanel implements Runnable {
 			}//else2 (after if)
 			
 		}
-			}
 			//Movement speed check
 			if(falling)  {
 				movementSpeed = movementFallingSpeed;
