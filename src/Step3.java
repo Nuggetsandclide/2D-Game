@@ -43,6 +43,7 @@ public class Step3 extends JPanel implements Runnable {
 	public boolean left = false;
 	public boolean jumping = true;
 	public boolean sinking = true;
+	public boolean onFloor;
 	
 	
 	public Thread game ;
@@ -60,6 +61,7 @@ public class Step3 extends JPanel implements Runnable {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == keyLeft) {
 					left = true;
+					System.out.println(character.y);
 				}
 				if(e.getKeyCode() == keyRight) {
 					right = true;
@@ -147,6 +149,11 @@ public class Step3 extends JPanel implements Runnable {
 			}//else2 (after if)
 			
 		}
+		if(character.y == 795){
+			onFloor = true;
+		}else{
+			onFloor = false;
+		}
 			//Movement speed check
 			if(falling)  {
 				movementSpeed = movementFallingSpeed;
@@ -170,7 +177,7 @@ public class Step3 extends JPanel implements Runnable {
 				}
 			}
 			//sinking
-			if (sinking) {
+			if (sinking && !onFloor) {
 				if (sinkingFrame <= sinkingDepth) {
 					
 					character.y += 1;
@@ -182,6 +189,7 @@ public class Step3 extends JPanel implements Runnable {
 					sinking = false;
 					
 				}
+				
 			}
 			// movement
 			
