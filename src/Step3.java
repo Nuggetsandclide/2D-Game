@@ -136,7 +136,7 @@ public class Step3 extends JPanel implements Runnable {
 			}
 			if(inGame != true) {
 				g.setColor(Color.GREEN);
-				g.drawString("PAUSED (Esc to Un-Pause)", 10,20 );
+				g.drawString("PAUSED (Esc to Un-Pause)", 675, 450);
 			}
 		}//if objectsDefined
 		
