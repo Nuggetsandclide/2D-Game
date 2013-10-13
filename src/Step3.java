@@ -65,7 +65,6 @@ public class Step3 extends JPanel implements Runnable {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == keyLeft) {
 					left = true;
-					System.out.println(character.y);
 				}
 				if(e.getKeyCode() == keyRight) {
 					right = true;
