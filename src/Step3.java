@@ -141,7 +141,6 @@ public class Step3 extends JPanel implements Runnable {
 				g.drawString("GAME OVER", Step.width /2 - 157, Step.height /2 - 20);
 			}
 			if(inGame != true) {
-				g.fillRect(PauseButtonX,PauseButtonY,PauseButtonWidth,PauseButtonHeight);
 				g.setColor(Color.GREEN);
 				g.drawString("PAUSED (Esc to Un-Pause)", 10,20 );
 			}
