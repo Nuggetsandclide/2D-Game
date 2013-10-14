@@ -47,8 +47,8 @@ public class Step3 extends JPanel implements Runnable {
 	public int PauseButtonY = Step.height /2 -20;
 	public int PauseButtonWidth = 100;
 	public int PauseButtonHeight = 50;
-	public int blockX = rand.nextInt(1000) *2 -400;
-	public int blockY = rand.nextInt(1000);
+	public int blockX = 50;//rand.nextInt(1000) *2 -400;
+	public int blockY = 50;//rand.nextInt(1000);
 	
 	
 	public boolean objectsDefined = false;
@@ -86,10 +86,11 @@ public class Step3 extends JPanel implements Runnable {
 				}
 				if (e.getKeyCode() == keyJump) {
 					jumping = true;
-					PlayerHealth -=10;
 				}
 				if (e.getKeyCode() == keySink) {
 					sinking = true;
+					System.out.println(blockY);
+					System.out.println(character.y);
 					
 				}
 				if (e.getKeyCode() == keyPause) {
@@ -136,6 +137,7 @@ public class Step3 extends JPanel implements Runnable {
 			g.fillRect(character.x - xScroll, character.y, character.width, character.height);
 			g.fillRect(floor.x - xScroll, floor.y, floor.width, floor.height);
 			g.fillRect(blockX, blockY, 50, 50);
+			moveTowards(blockX, blockY);
 			if(PlayerHealth > 0){
 			g.setColor(Color.RED);
 			g.fillRect(Step.width - 1590, Step.height -890, stringx, 30);
@@ -272,6 +274,56 @@ public class Step3 extends JPanel implements Runnable {
 			}//while running
 		
 	}//public void run
+	
+	public void moveTowards(int ObjX, int ObjY){
+		   int CharX = character.x;
+		   int CharY = character.y;
+		   int XDif = CharX -= blockX;
+		   int YDif = CharY -= blockY;
+		   System.out.println("X: "+XDif);
+		   System.out.println("Y: "+YDif);
+		   if(YDif < 100 && YDif > 0){
+			   for(int y = YDif;y>0;y--){
+				  blockY++;
+					System.out.println("hello");
+			   }
+		   }
+		   if(YDif < 0 && YDif > -100){
+			   for(int y = YDif;y>0;y--){
+				  blockY--;
+					System.out.println("hello");
+			   }
+		   }
+		   if(XDif < 200 && XDif > 0){
+			   for(int y = XDif;y>0;y--){
+				  blockX++;
+					System.out.println("hello");
+			   }
+		   }
+		  if(XDif < 0 && XDif > -200){
+			   for(int y = YDif;y>0;y--){
+				  blockX--;
+					System.out.println("hello");
+			   }
+		   }
+		  /* if(YDif > -10){
+			   for(int y = YDif;y<0;y++){
+				   blockY++;
+					System.out.println("hello");
+			   }
+		  }
+		   if(XDif >=0){
+			   for(int x = XDif;x>0;x--){
+				   System.out.println("hello");
+				   blockX--;
+			   }
+		   }else{
+			   for(int x = XDif;x<0;x++){
+				   blockX++;
+			   }
+		   }*/
+	   
+	}
 
 	
 	public void fpsSetter() {
