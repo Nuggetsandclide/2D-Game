@@ -177,7 +177,7 @@ public class Step3 extends JPanel implements Runnable {
 			Point pt2 = new Point(character.x + character.width, character.y + character.height);
 		if(jumping != true) {
 			if(fallingFrame >= fallingSpeed) {
-				if(floor.contains(pt1) || floor.contains(pt2) || block.contains(pt1) || block.contains(pt2)) {
+				if(floor.contains(pt1) || floor.contains(pt2)) {
 					
 					falling = false;
 					
@@ -284,17 +284,15 @@ public class Step3 extends JPanel implements Runnable {
 		   System.out.println("Y: "+YDif);
 		   if(YDif < 100 && YDif > 0){
 			   for(int y = YDif;y>0;y--){
-				  blockY++;
-					System.out.println("hello");
+				  blockY++;;
 			   }
 		   }
 		   if(YDif < 0 && YDif > -100){
-			   for(int y = YDif;y>0;y--){
+			   for(int y = YDif;y<0;y++){
 				  blockY--;
-					System.out.println("hello");
 			   }
 		   }
-		   if(XDif < 200 && XDif > 0){
+		   /*if(XDif < 200 && XDif > 0){
 			   for(int y = XDif;y>0;y--){
 				  blockX++;
 					System.out.println("hello");
@@ -305,7 +303,7 @@ public class Step3 extends JPanel implements Runnable {
 				  blockX--;
 					System.out.println("hello");
 			   }
-		   }
+		   }*/
 		  /* if(YDif > -10){
 			   for(int y = YDif;y<0;y++){
 				   blockY++;
